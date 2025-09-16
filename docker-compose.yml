@@ -1,0 +1,14 @@
+version: "3.9"
+
+services:
+  multi-agents-api:
+    build: .
+    container_name: multi-agents-api
+    restart: always
+    env_file:
+      - .env   # load GROQ_API_KEY and TAVILY_API_KEY
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app   # mount local code for hot reload (remove in production)
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
